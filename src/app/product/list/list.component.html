@@ -1,0 +1,24 @@
+<div class="headerOfTable">
+  <h1>List product</h1>
+  <button><a [routerLink]="['/add']">Ajouter</a></button>
+</div>
+<table>
+  <thead>
+  <tr>
+    <th >Product Name</th>
+    <th >Type Producte</th>
+    <th >Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products">
+    <td>{{ product.name }}</td>
+    <td>{{ product.type }}</td>
+    <td>
+      <button (click)="navigate(product.idProduct)" >Modifier</button>
+      <button style="background-color: #8a0000" (click)="onDelete(product.idProduct)" >Supprimer</button>
+    </td>
+
+  </tr>
+  </tbody>
+</table>

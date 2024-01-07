@@ -1,0 +1,13 @@
+<h1>{{ this.idProductType ? 'Modifier' : 'Ajouter' }} un produit</h1>
+
+<div class="form">
+  <form [formGroup]="productTypeForm" >
+    <label for="type">Categorie :</label>
+    <small style="background-color: #8a0000 ; opacity: 0.2; color: white" *ngIf="productTypeForm.controls['type'].invalid && (productTypeForm.controls['type'].dirty || productTypeForm.controls['type'].touched)">
+      champ requis
+    </small>
+    <input type="text" id="type" formControlName="type" required>
+
+    <input [disabled]="productTypeForm.invalid" type="submit" [value]="idProductType? 'Modifier':'Ajouter'" (click)="onSave()" (keyup.enter)="onSave()">
+  </form>
+</div>

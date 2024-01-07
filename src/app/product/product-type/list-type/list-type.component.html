@@ -1,0 +1,22 @@
+<div class="headerOfTable">
+  <h1>Categories</h1>
+  <button><a [routerLink]="['/productType/form']">Ajouter</a></button>
+</div>
+<table>
+  <thead>
+  <tr>
+    <th >Categori Name</th>
+    <th >Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let productType of productsTypes">
+    <td>{{ productType.type }}</td>
+    <td>
+      <button (click)="navigate(productType.idTypeProduct)" >Modifier</button>
+      <button style="background-color: #8a0000" (click)="onDelete(productType.idTypeProduct)" >Supprimer</button>
+    </td>
+
+  </tr>
+  </tbody>
+</table>

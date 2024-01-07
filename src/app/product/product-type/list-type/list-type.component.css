@@ -1,0 +1,75 @@
+/* Style de base pour le tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* Style de l'en-tête du tableau */
+thead {
+  background-color: #333;
+  color: #fff;
+}
+
+thead th {
+  padding: 10px;
+  text-align: left;
+}
+
+/* Style des lignes du tableau */
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody td {
+  padding: 10px;
+}
+
+/* Style des liens dans la colonne "Action" */
+tbody td a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+tbody td a:hover {
+  text-decoration: underline;
+}
+
+.headerOfTable{
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.headerOfTable button{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background: #007bff;
+  border: none;
+  border-radius: 2rem;
+  color: #f4f4f4;
+  font-size: 1rem;
+}
+.headerOfTable button a{
+  text-decoration: none;
+  color: #f4f4f4;
+}
+table button{
+  padding: 1rem 1.5rem;
+  background: #007bff;
+  border: none;
+  border-radius: 2rem;
+  color: #f4f4f4;
+  cursor: pointer;
+  font-size: 1rem;
+}
+table button:hover{
+  text-decoration: underline;
+}
+
+.headerOfTable button:hover{
+  text-decoration: underline;
+}
+

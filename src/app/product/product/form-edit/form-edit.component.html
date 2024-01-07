@@ -1,0 +1,20 @@
+<h1>Modifier un produit</h1>
+
+<div class="form">
+  <form [formGroup]="productForm" >
+    <label for="productName">Nom du produit :</label>
+    <small style="background-color: #8a0000 ; opacity: 0.2; color: white" *ngIf="productForm.controls['productName'].invalid && (productForm.controls['productName'].dirty || productForm.controls['productName'].touched)">
+      champ requis
+    </small>
+    <input type="text" id="productName" formControlName="productName" required>
+    <label for="productType">Type de produit :</label>
+    <small style="background-color: #8a0000 ; opacity: 0.2; color: white" *ngIf="productForm.controls['productType'].invalid && (productForm.controls['productType'].dirty || productForm.controls['productType'].touched)">
+      champ requis
+    </small>
+    <select  id="productType" formControlName="productType">
+      <option *ngFor="let productType of productsTypes" [value]="productType.type">{{productType.type}}</option>
+    </select>
+
+    <input [disabled]="productForm.invalid" type="submit" [value]="idProduct? 'Modifier le produit':'Ajouter le produit'" (click)="onSave()" (keyup.enter)="onSave()">
+  </form>
+</div>
