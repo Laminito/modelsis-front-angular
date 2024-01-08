@@ -1,6 +1,17 @@
-<header>
-  <ul>
-    <li [routerLink]="['product']">list product</li>
-    <li [routerLink]="['productType/list']" >Cathegories</li>
-  </ul>
-</header>
+<nav class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark text-primary">
+  <a class="navbar-brand" href="/" >Gestion des produits</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['product']">Liste des produits</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['productType/list']">Liste des catégories</a>
+      </li>
+    </ul>
+  </div>
+</nav>

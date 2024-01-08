@@ -56,22 +56,22 @@ tbody td a:hover {
   text-decoration: none;
   color: #f4f4f4;
 }
-table button{
-  padding: 1rem 1.5rem;
-  background: #007bff;
-  border: none;
-  border-radius: 2rem;
-  color: #f4f4f4;
-  cursor: pointer;
-  font-size: 1rem;
-}
-table button:hover{
-  text-decoration: underline;
-}
+/*table button{*/
+/*  padding: 1rem 1.5rem;*/
+/*  background: #007bff;*/
+/*  border: none;*/
+/*  border-radius: 2rem;*/
+/*  color: #f4f4f4;*/
+/*  cursor: pointer;*/
+/*  font-size: 1rem;*/
+/*}*/
+/*table button:hover{*/
+/*  text-decoration: underline;*/
+/*}*/
 
-.headerOfTable button:hover{
-  text-decoration: underline;
-}
+/*.headerOfTable button:hover{*/
+/*  text-decoration: underline;*/
+/*}*/
 
 
 

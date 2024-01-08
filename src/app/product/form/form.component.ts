@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {ProductService} from "../../service/product.service";
 import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CategoriService} from "../../service/categori.service";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {CONSTANTES} from "../../constantes/constantes";
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form',
@@ -10,30 +13,33 @@ import {CategoriService} from "../../service/categori.service";
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit{
-  idProduct = this.router.snapshot.params['id'];
+  idProduct:any;
   productsTypes! :any;
+  dialogTitle!: string;
+  action!:string;
+  constantes = CONSTANTES.TYPEACTION;
   productForm:FormGroup = new FormGroup<any>({
-    productName:new FormControl(''),
-    productType:new FormControl('')
-  })
-
-
+      productName:new FormControl(''),
+      productType:new FormControl('')
+    })
   ngOnInit() {
     this.getProductTypes();
-    this.getProduct();
   }
 
   onSave(){
-    console.log(this.productForm.value);
-    this.save();
+    if (this.action == this.constantes.NEW){
+      this.save();
+    }else if(this.action == this.constantes.EDIT){
+      this.edit();
+    }
 
   }
 
-  getProduct(){
-    if (this.idProduct){
-      this.productService.product(this.idProduct).subscribe(res=>{
+  getProduct(idProduct:string){
+    if (idProduct){
+      this.productService.product(idProduct).subscribe(res=>{
         const product =  res.modelsis.result.data
-        console.log(res);
+        console.log('resultat',res);
         this.productForm.patchValue({
           productName: product.name,
           productType: product.type
@@ -44,17 +50,55 @@ export class FormComponent implements OnInit{
   getProductTypes(){
     this.productTypeService.listTypeProduct().subscribe(res=>{
       this.productsTypes = res.modelsis.result.data;
-      console.log(this.productsTypes)
+      console.log('type de produits',this.productsTypes)
     })
   }
-  constructor(private productService:ProductService,private router:ActivatedRoute, private productTypeService:CategoriService) {
+  constructor(private productService:ProductService,
+              private router:ActivatedRoute,
+              private productTypeService:CategoriService,
+              public matDialogRef: MatDialogRef<FormComponent>,
+              private changeDetectorRef: ChangeDetectorRef,
+              @Inject(MAT_DIALOG_DATA) _data: any) {
+    console.log('data',_data)
+    if (_data.action == this.constantes.NEW){
+      this.dialogTitle = "Ajouter un ";
+      this.action = this.constantes.NEW
+    }else if(_data.action == this.constantes.EDIT){
+      this.dialogTitle = "Modifier un ";
+      this.idProduct  = _data.information.idProduct
+      this.getProduct(this.idProduct)
+      this.action = this.constantes.EDIT;
+    }
   }
 
   private save() {
-    console.log(this.productForm.value)
+    this.productForm.patchValue({productType:{id:this.productForm.get('productType')?.value}})
     if (this.productForm.valid){
       this.productService.addProduct(this.productForm.value).subscribe(res=>{
-        console.log(res)
+        this.matDialogRef.close(res);
+        this.changeDetectorRef.markForCheck();
+        console.log('ajout', res)
+        swal.fire({
+          title: res.modelsis.result.status,
+          text: res.modelsis.result.message,
+          icon: "success"
+        });
+      })
+    }
+
+  }
+  private edit() {
+    this.productForm.patchValue({id:this.idProduct,productType:{id:this.productForm.get('productType')?.value}})
+    if (this.productForm.valid){
+      this.productService.editProduct(this.productForm.value).subscribe(res=>{
+        this.matDialogRef.close(res);
+        this.changeDetectorRef.markForCheck();
+        console.log('ajout', res)
+        swal.fire({
+          title: res.modelsis.result.status,
+          text: res.modelsis.result.message,
+          icon: "success"
+        });
       })
     }
 

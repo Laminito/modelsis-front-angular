@@ -1,24 +1,25 @@
-<div class="headerOfTable">
-  <h1>List product</h1>
-  <button><a [routerLink]="['/add']">Ajouter</a></button>
+<div class="mt-5 mx-5 p-0 d-flex justify-content-between container ">
+  <h1>Liste des produits</h1>
+  <button class="btn btn-outline-primary" (click)="openModal(constantes.NEW)">Ajouter</button>
 </div>
-<table>
+<table class="table table-striped container border rounded-lg ms-5">
   <thead>
   <tr>
-    <th >Product Name</th>
-    <th >Type Producte</th>
-    <th >Action</th>
+    <th scope="col">Nom produit</th>
+    <th scope="col">Type de produit</th>
+    <th scope="col">Date de creation</th>
+    <th scope="col">Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let product of products">
     <td>{{ product.name }}</td>
     <td>{{ product.type }}</td>
+    <td>{{ product.createdDate | date }}</td>
     <td>
-      <button (click)="navigate(product.idProduct)" >Modifier</button>
-      <button style="background-color: #8a0000" (click)="onDelete(product.idProduct)" >Supprimer</button>
+      <button class="btn btn-outline-primary me-3" (click)="openModal(constantes.EDIT,product)" >Modifier</button>
+      <button class="btn btn-outline-danger" (click)="onDelete(product.idProduct)" >Supprimer</button>
     </td>
-
   </tr>
   </tbody>
 </table>

@@ -1,20 +1,29 @@
-<h1>{{ this.idProduct ? 'Modifier' : 'Ajouter' }} un produit</h1>
+<mat-toolbar class="mat-accent m-0 c-colorHeader">
+  <mat-toolbar-row class="d-flex justify-content-between bg-dark">
+    <span class="title dialog-title">{{dialogTitle}} un produit</span>
+    <button mat-icon-button  (click)="matDialogRef.close()"
+            aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-<div class="form">
-  <form [formGroup]="productForm" >
-    <label for="productName">Nom du produit :</label>
-    <small style="background-color: #8a0000 ; opacity: 0.2; color: white" *ngIf="productForm.controls['productName'].invalid && (productForm.controls['productName'].dirty || productForm.controls['productName'].touched)">
-      champ requis
-    </small>
-    <input type="text" id="productName" formControlName="productName" required>
-    <label for="productType">Type de produit :</label>
-    <small style="background-color: #8a0000 ; opacity: 0.2; color: white" *ngIf="productForm.controls['productType'].invalid && (productForm.controls['productType'].dirty || productForm.controls['productType'].touched)">
-      champ requis
-    </small>
-    <select  id="productType" formControlName="productType">
-      <option *ngFor="let productType of productsTypes" [value]="productType.id">{{productType.type}}</option>
-    </select>
+<div class="form py-4 px-3">
+  <form [formGroup]="productForm" class="row " >
+    <mat-form-field class="col border-warning" appearance="outline">
+      <mat-label>Nom du produit</mat-label>
+      <input matInput formControlName="productName">
+      <mat-error>Le champs est obligatoire</mat-error>
+    </mat-form-field>
 
-    <input [disabled]="productForm.invalid" type="submit" [value]="idProduct? 'Modifier le produit':'Ajouter le produit'" (click)="onSave()" (keyup.enter)="onSave()">
+    <mat-form-field appearance="outline">
+      <mat-label>Type de produit</mat-label>
+      <mat-select id="productType" formControlName="productType">
+        <mat-option *ngFor="let productType of productsTypes" [value]="productType.idTypeProduct">{{productType.type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="text-center">
+      <input class="col-4 btn btn-primary" [disabled]="productForm.invalid" type="submit" [value]="idProduct? 'Modifier le produit':'Ajouter le produit'" (click)="onSave()" (keyup.enter)="onSave()">
+    </div>
   </form>
 </div>

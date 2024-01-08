@@ -12,6 +12,13 @@ import { ProductTypeComponent } from './product/product-type/product-type.compon
 import { ListTypeComponent } from './product/product-type/list-type/list-type.component';
 import { FormTypeComponent } from './product/product-type/form-type/form-type.component';
 import { FormEditComponent } from './product/product/form-edit/form-edit.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -28,7 +35,14 @@ import { FormEditComponent } from './product/product/form-edit/form-edit.compone
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatInputModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
