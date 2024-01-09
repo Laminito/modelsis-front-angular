@@ -1,19 +1,24 @@
 <h1>Modifier un produit</h1>
 
 <div class="form">
-  <form [formGroup]="productForm" >
-    <label for="productName">Nom du produit :</label>
-    <small style="background-color: #8a0000 ; opacity: 0.2; color: white" *ngIf="productForm.controls['productName'].invalid && (productForm.controls['productName'].dirty || productForm.controls['productName'].touched)">
-      champ requis
-    </small>
-    <input type="text" id="productName" formControlName="productName" required>
-    <label for="productType">Type de produit :</label>
-    <small style="background-color: #8a0000 ; opacity: 0.2; color: white" *ngIf="productForm.controls['productType'].invalid && (productForm.controls['productType'].dirty || productForm.controls['productType'].touched)">
-      champ requis
-    </small>
-    <select  id="productType" formControlName="productType">
-      <option *ngFor="let productType of productsTypes" [value]="productType.type">{{productType.type}}</option>
-    </select>
+  <form [formGroup]="productForm">
+    <div>
+      <label for="productName">Nom du produit :</label>
+      <input type="text" id="productName" formControlName="productName" required>
+      <small class="error-message" *ngIf="productForm.get('productName')?.invalid && (productForm.get('productName')?.dirty || productForm.get('productName')?.touched)">
+        Champ requis
+      </small>
+    </div>
+
+    <div>
+      <label for="productType">Type de produit :</label>
+      <select id="productType" formControlName="productType">
+        <option *ngFor="let productType of productsTypes" [value]="productType.id">{{ productType.type }}</option>
+      </select>
+      <small class="error-message" *ngIf="productForm.get('productType')?.invalid && (productForm.get('productType')?.dirty || productForm.get('productType')?.touched)">
+        Champ requis
+      </small>
+    </div>
 
     <input [disabled]="productForm.invalid" type="submit" [value]="idProduct? 'Modifier le produit':'Ajouter le produit'" (click)="onSave()" (keyup.enter)="onSave()">
   </form>

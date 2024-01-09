@@ -87,8 +87,9 @@ export class FormComponent implements OnInit{
     }
 
   }
-  private edit() {
+/*  private edit() {
     this.productForm.patchValue({id:this.idProduct,productType:{id:this.productForm.get('productType')?.value}})
+    console.log('edit : ',this.productForm.get('productType')?.value)
     if (this.productForm.valid){
       this.productService.editProduct(this.productForm.value).subscribe(res=>{
         this.matDialogRef.close(res);
@@ -102,7 +103,31 @@ export class FormComponent implements OnInit{
       })
     }
 
+  }*/
+
+  private edit() {
+    if (this.productForm.valid) {
+      const editedProduct = {
+        id: this.idProduct,
+        productName: this.productForm.get('productName')?.value,
+        productType: {
+          id: this.productForm.get('productType')?.value
+        }
+      };
+      this.productService.editProduct(editedProduct).subscribe((res) => {
+        this.matDialogRef.close(res);
+        this.changeDetectorRef.markForCheck();
+        console.log('Edition du produit :', res);
+
+        swal.fire({
+          title: res.modelsis.result.status,
+          text: res.modelsis.result.message,
+          icon: "success"
+        });
+      });
+    }
   }
+
 
 
 }

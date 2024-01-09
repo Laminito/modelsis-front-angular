@@ -31,25 +31,40 @@ export class FormEditComponent implements OnInit{
     this.getProduct();
   }
 
-  onSave(){
-    console.log(this.productForm.value)
-    if (this.idProduct){
+  onSave() {
+    if (this.idProduct) {
       this.edit(this.idProduct);
     }
   }
 
-  getProduct(){
-    if (this.idProduct){
-      this.productService.product(this.idProduct).subscribe(res=>{
-        const product =  res.modelsis.result.data
-        console.log(res);
+  getProduct() {
+    if (this.idProduct) {
+      this.productService.product(this.idProduct).subscribe((res) => {
+        const product = res.modelsis.result.data;
         this.productForm.patchValue({
-          productName: product.name,
-          productType: product.type
-        })
-      })
+          productName: product.productName,
+          productType: product.productType.id // Utilisation de l'identifiant du type de produit
+        });
+      });
     }
   }
+
+  private edit(id: string) {
+    if (this.productForm.valid) {
+      const editedProduct = {
+        id: id,
+        productName: this.productForm.get('productName')?.value,
+        productType: {
+          id: this.productForm.get('productType')?.value
+        }
+      };
+
+      this.productService.editProduct(editedProduct).subscribe((res) => {
+        console.log('editProduct',res);
+      });
+    }
+  }
+
   getProductTypes(){
     this.productTypeService.listTypeProduct().subscribe(res=>{
       this.productsTypes = res.modelsis.result.data;
@@ -60,19 +75,5 @@ export class FormEditComponent implements OnInit{
   }
 
 
-  private edit(id:string) {
-    const val = this.productsTypes.filter((res:any) => res.type == this.productForm.get('productType')?.value)[0];
-    console.log(val)
-    this.objectProduct.id = this.idProduct
-    this.objectProduct.productName = this.productForm.get('productName')?.value
-    this.objectProduct.productType.id = val.idTypeProduct;
-
-    console.log(this.objectProduct)
-    if (this.productForm.valid){
-      this.productService.editProduct(this.productForm.value).subscribe(res=>{
-        console.log(res)
-      })
-    }
-  }
 
 }
