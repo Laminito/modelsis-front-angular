@@ -13,13 +13,13 @@
     <div>
       <label for="productType">Type de produit :</label>
       <select id="productType" formControlName="productType">
-        <option *ngFor="let productType of productsTypes" [value]="productType.id">{{ productType.type }}</option>
+        <option *ngFor="let productType of productsTypes" [ngValue]="productType.idTypeProduct">{{ productType.type }}</option>
       </select>
       <small class="error-message" *ngIf="productForm.get('productType')?.invalid && (productForm.get('productType')?.dirty || productForm.get('productType')?.touched)">
         Champ requis
       </small>
     </div>
 
-    <input [disabled]="productForm.invalid" type="submit" [value]="idProduct? 'Modifier le produit':'Ajouter le produit'" (click)="onSave()" (keyup.enter)="onSave()">
+    <input [disabled]="productForm.invalid" type="submit" [value]="idProduct ? 'Modifier le produit' : 'Ajouter le produit'" (click)="onSave()" (keyup.enter)="onSave()">
   </form>
 </div>
