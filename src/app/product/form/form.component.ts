@@ -127,7 +127,7 @@ export class FormComponent implements OnInit {
         this.changeDetectorRef.markForCheck();
         console.log('Edition du produit :', res);
 
-        if (res.modelsis.result.status === 'success') {
+        if (res.modelsis.result.status === 'Success') {
           swal.fire({
             title: res.modelsis.result.status,
             text: res.modelsis.result.message,
